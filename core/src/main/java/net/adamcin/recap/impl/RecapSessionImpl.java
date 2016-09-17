@@ -521,7 +521,11 @@ public final class RecapSessionImpl implements RecapSession {
                     if (dst.hasProperty(pName)) {
                         dst.getProperty(pName).remove();
                     }
-                    if (p.getDefinition().isMultiple()) {
+                    if (p.getDefinition().isMultiple() || p.isMultiple()) {
+                    	if( p.getDefinition().isMultiple() != p.isMultiple() ) {
+                    		trackMessage("isMultiple() mismatch for " + src.getPath() + "@" + pName );
+                    	}
+                    	
                         Value[] vs = p.getValues();
                         dst.setProperty(pName, vs);
                         for (long s : p.getLengths()) {
